@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841f5d14e8d0cc54b8f5b8b25614e5fb, type: 3}
+  m_Name: FireballPulse
+  m_EditorClassIdentifier: 
+  Name: Fireball Pulse
+  BaseDamage: 2
+  Prefab: {fileID: 1607245154113358470, guid: ad6033b922311d74a8b8bfb380730a28, type: 3}
+  ProjectileAmount: 12
+  ProjectileDamage: 1
+  ProjectileSpeed: 1.5
+  ProjectileLifespan: 3
+  Penetration: 1
+  Projectile: {fileID: 7006154441746722211, guid: a2ee9b402de424e4e995985b7fed846e, type: 3}
