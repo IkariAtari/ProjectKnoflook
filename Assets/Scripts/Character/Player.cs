@@ -16,11 +16,11 @@ namespace ToBeNamed.Character
         private float HealthCooldown;
 
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private float HealthCooldownTime;
 
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private List<GameObject> Weapons = new List<GameObject>();
 
         [SerializeField]
@@ -32,7 +32,7 @@ namespace ToBeNamed.Character
         [SerializeField]
         private Image[] HeartImages;
 
-        [Button("AddWeapon")]
+        //[Button("AddWeapon")]
         private void ButtonAddWeapon()
         {
             if (WeaponToAdd != null)
@@ -41,7 +41,7 @@ namespace ToBeNamed.Character
             }
         }
 
-        [Button("ClearWeapon")]
+        //[Button("ClearWeapon")]
         private void ButtonClearWeapons()
         {
             Weapons.Clear();

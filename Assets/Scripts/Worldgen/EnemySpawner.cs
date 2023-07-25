@@ -26,7 +26,7 @@ namespace ToBeNamed.Worldgen
         public GameObject Enemy;
 
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private bool PlayerIsInRange;
 
         private void Start()

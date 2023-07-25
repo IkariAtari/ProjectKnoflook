@@ -8,7 +8,7 @@ namespace ToBeNamed.Character.Enemies
     public class Enemy : MonoBehaviour, IHurtable
     {
         [SerializeField]
-        [ReadOnly]
+        //[ReadOnly]
         private GameObject Player;
 
         public float Speed;
