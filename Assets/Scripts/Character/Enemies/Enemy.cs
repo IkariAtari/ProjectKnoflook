@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Sirenix.OdinInspector;
+using UnityEngine.UI;
 
 namespace ToBeNamed.Character.Enemies
 {
@@ -15,11 +15,22 @@ namespace ToBeNamed.Character.Enemies
 
         private Vector2 Direction;
 
-        public int Health;
+        private int Health;
+
+        public int MaxHealth;
+
+        [SerializeField]
+        private Slider HealthBar;
+
+        public int Damage;
 
         private void Start()
         {
             Player = GameObject.Find("Player");
+
+            Health = MaxHealth;
+            HealthBar.maxValue = MaxHealth;
+            HealthBar.value = MaxHealth;
         }
 
         private void Update()
@@ -36,13 +47,20 @@ namespace ToBeNamed.Character.Enemies
         public void Hurt(int Damage)
         {
             Health -= Damage;
+
+            HealthBar.value = Health;
+
+            if(Health <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
-        private void OnTriggerStay2D(Collider2D Collision)
+        private void OnCollisionStay2D(Collision2D Collision)
         {
             if(Collision.transform.tag == "Player")
             {
-                Collision.GetComponent<Player>().Hurt(1);
+                Collision.transform.GetComponent<Player>().Hurt(Damage);
             }
         }
     }

@@ -13,4 +13,5 @@ public class ProjectileWeapon : Weapon
     public int Penetration;
 
     public GameObject Projectile;
+    public MonoBehaviour AttackBehaviour;
 }

@@ -1,5 +1,5 @@
 {
-    "name": "Controls",
+    "name": "MainControls",
     "maps": [
         {
             "name": "PlayerControls",
@@ -10,6 +10,15 @@
                     "type": "Value",
                     "id": "46de5638-a9f9-4929-b875-1768d36d8be6",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Mouse",
+                    "type": "Button",
+                    "id": "cfdad275-a05b-4a9c-bdd3-43a400f3ec74",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -70,6 +79,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "fbb4cd52-2c42-4fac-b3a4-9a84cdffa342",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

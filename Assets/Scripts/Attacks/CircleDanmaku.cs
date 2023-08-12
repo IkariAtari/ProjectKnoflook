@@ -5,15 +5,11 @@ using ToBeNamed.Projectile;
 
 public class CircleDanmaku : AttackBehaviour
 {
+    [SerializeField]
     private ProjectileWeapon ProjectileWeapon;
 
-    private void Start()
-    {
-        ProjectileWeapon = base.Weapon as ProjectileWeapon;
-    }
-
     public override void DoAttack(Vector3 Location)
-    {
+    { 
         for(int i = 0; i < ProjectileWeapon.ProjectileAmount; i++)
         {
             float dir = (360 / ProjectileWeapon.ProjectileAmount) * i;
@@ -22,13 +18,17 @@ public class CircleDanmaku : AttackBehaviour
 
             GameObject projectileObject = Instantiate(ProjectileWeapon.Projectile, Location, direction);
 
-            Projectile projectile = projectileObject.GetComponent<Projectile>();
+            Projectile projectile = projectileObject.AddComponent<Projectile>();
 
+            projectile.Sprite = ProjectileWeapon.Sprite;
             projectile.Speed = ProjectileWeapon.ProjectileSpeed;
             projectile.Direction = direction;
             projectile.BaseDamage = ProjectileWeapon.ProjectileDamage;
             projectile.ExtraDamage = ProjectileWeapon.BaseDamage;
             projectile.Penetration = ProjectileWeapon.Penetration;
+            projectile.LifeSpan = ProjectileWeapon.ProjectileLifespan;
+
+            projectile.Launch();
         }
     }
 }

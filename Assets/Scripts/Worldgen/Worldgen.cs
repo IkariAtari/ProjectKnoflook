@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Worldgen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private int Size;
+
+    private void Start()
     {
-        
+        GenerateGround();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GenerateGround()
     {
-        
+
     }
 }

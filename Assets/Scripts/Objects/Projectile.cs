@@ -20,15 +20,18 @@ namespace ToBeNamed.Projectile
 
         public int ExtraDamage;
 
+        [SerializeField]
         private int PenetrationCounter;
 
         private void Start()
         {
             GetComponent<SpriteRenderer>().sprite = Sprite;
-
-            StartCoroutine(LifespanTimer());
-
             PenetrationCounter = Penetration;
+        }
+
+        public void Launch()
+        {
+            StartCoroutine(LifespanTimer());
         }
 
         private void Update()
@@ -41,24 +44,29 @@ namespace ToBeNamed.Projectile
         {
             yield return new WaitForSeconds(LifeSpan);
 
-            print("Destroyed Projectile");
-
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
+            if (collision.transform.tag == "Walls")
+            {
+                Destroy(this.gameObject);
+            }
+
             if(PenetrationCounter >= 0)
             {
                 if(collision.transform.GetComponent<IHurtable>() != null)
                 {
                     collision.transform.GetComponent<IHurtable>().Hurt(BaseDamage + ExtraDamage);
+
+                    if(PenetrationCounter == 0)
+                    {
+                        Destroy(this.gameObject);
+                    }
                 }
             }
-        }
 
-        private void OnCollisionExit(Collision collision)
-        {
             PenetrationCounter--;
         }
     }

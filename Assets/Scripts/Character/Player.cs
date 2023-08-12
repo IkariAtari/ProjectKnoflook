@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace ToBeNamed.Character
 {
@@ -24,43 +25,47 @@ namespace ToBeNamed.Character
         private List<GameObject> Weapons = new List<GameObject>();
 
         [SerializeField]
-        private Weapon WeaponToAdd;
-
-        [SerializeField]
         private Sprite FullHeart, HalfHeart, EmptyHeart;
 
         [SerializeField]
-        private Image[] HeartImages;
-
-        //[Button("AddWeapon")]
-        private void ButtonAddWeapon()
-        {
-            if (WeaponToAdd != null)
-            {
-                AddWeapon(WeaponToAdd);
-            }
-        }
-
-        //[Button("ClearWeapon")]
-        private void ButtonClearWeapons()
-        {
-            Weapons.Clear();
-        }
+        private Image[] HeartSlots;
 
         [SerializeField]
-        [Range(1f, 10f)]
+        [Range(0.1f, 10f)]
         private float AttackTime = 5;
+
+        private MainControls PlayerControls;
+
+        private Mouse PlayerMouse;
 
         private void Start()
         {
-            StartCoroutine(DoAttacks());
+            PlayerControls = new MainControls();
+
+            //PlayerControls.PlayerControls.Mouse.performed += OnAttack;
+
+            PlayerMouse = Mouse.current;
+
+            //StartCoroutine(DoAttacks());
 
             Health = MaxHealth;
+
+            UpdateHealthBar();
+        }
+
+        private void OnAttack()
+        {
+            print("Attack!");
+
+            foreach (GameObject weapon in Weapons)
+            {
+                weapon.GetComponent<AttackBehaviour>().DoAttack(transform.position);
+            }
         }
 
         private void Update()
         {
-            if(HealthCooldownTime != 0)
+            if(HealthCooldownTime > 0)
             {
                 HealthCooldownTime--;
             }
@@ -74,6 +79,11 @@ namespace ToBeNamed.Character
                 Health = 0;
             }
 
+            if(PlayerMouse.leftButton.wasPressedThisFrame)
+            {
+                OnAttack();
+            }
+
             for(int i = 0; i < MaxHealth; i++)
             {
             
@@ -82,13 +92,39 @@ namespace ToBeNamed.Character
          
         public void Hurt(int Damage)
         {
-            print("Player Hurted");
-
             if(HealthCooldownTime == 0)
             {
                 Health -= Damage;
 
+                GetComponent<AudioSource>().Play();
+
                 HealthCooldownTime = HealthCooldown;
+            }
+
+            UpdateHealthBar();
+        }
+
+        private void UpdateHealthBar()
+        {
+            float fractionalHealth = Health / 2f;
+
+            for(int i = 0; i < 6; i++)
+            {
+                if(fractionalHealth > i)
+                {
+                    if (fractionalHealth < i + 1)
+                    {
+                        HeartSlots[i].sprite = GameManager.Instance.HeartImages[1];
+                    }
+                    else
+                    {
+                        HeartSlots[i].sprite = GameManager.Instance.HeartImages[0];
+                    }     
+                }
+                else
+                {
+                    HeartSlots[i].sprite = GameManager.Instance.HeartImages[2];
+                }
             }
         }
 
@@ -102,8 +138,6 @@ namespace ToBeNamed.Character
 
         private IEnumerator DoAttacks()
         {
-            print("Attack!");
-
             yield return new WaitForSeconds(AttackTime);
 
             foreach (GameObject weapon in Weapons)

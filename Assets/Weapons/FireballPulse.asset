@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: FireballPulse
   m_EditorClassIdentifier: 
   Name: Fireball Pulse
-  BaseDamage: 2
+  Sprite: {fileID: -910160162, guid: 843954280d8e39347a97216828d510c2, type: 3}
+  BaseDamage: 1
   Prefab: {fileID: 1607245154113358470, guid: ad6033b922311d74a8b8bfb380730a28, type: 3}
   ProjectileAmount: 12
   ProjectileDamage: 1
   ProjectileSpeed: 1.5
   ProjectileLifespan: 3
-  Penetration: 1
+  Penetration: 10
   Projectile: {fileID: 7006154441746722211, guid: a2ee9b402de424e4e995985b7fed846e, type: 3}
+  AttackBehaviour: {fileID: 0}

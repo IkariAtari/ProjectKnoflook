@@ -27,11 +27,15 @@ namespace ToBeNamed.Character
 
         private Animator PlayerAnimator;
 
+        private Rigidbody2D rb;
+
         private void Awake()
         {
             PlayerControls = new MainControls();
 
             PlayerAnimator = GetComponent<Animator>();
+
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void OnEnable()
@@ -60,7 +64,7 @@ namespace ToBeNamed.Character
                 PlayerAnimator.SetBool("IsWalking", false);
             }
 
-            transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime;
+            rb.MovePosition(transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime); // transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime;
 
             PlayerCamera.transform.position = Vector3.Lerp(PlayerCamera.transform.position, transform.position + new Vector3(0, 0, CameraDistance), CameraSpeed * Time.deltaTime);
 
