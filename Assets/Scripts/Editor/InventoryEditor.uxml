@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Scripts/Editor/InventoryEditor.uss?fileID=7433441132597879392&amp;guid=0958ae0f301307144b2358ff535f4650&amp;type=3#InventoryEditor" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <uie:ObjectField label="Item" name="ItemField" />
+        <ui:Button text="Add Item" display-tooltip-when-elided="true" binding-path="AddPotionButton" name="AddPotionButton" style="height: 47px;" />
+    </ui:VisualElement>
+</ui:UXML>

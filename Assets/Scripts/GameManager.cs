@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public Sprite[] HeartImages;
 
+    public GameObject ItemInfoPanel;
+
     private void Awake()
     {
         if(Instance != null && Instance != this)

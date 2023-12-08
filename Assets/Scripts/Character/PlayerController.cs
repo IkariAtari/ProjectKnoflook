@@ -14,7 +14,7 @@ namespace ToBeNamed.Character
         [Range(0.1f, 10f)]
         private float CameraSpeed;
 
-        private MainControls PlayerControls;
+        //private MainControls PlayerControls;
 
         [SerializeField]
         private Camera PlayerCamera;
@@ -31,26 +31,16 @@ namespace ToBeNamed.Character
 
         private void Awake()
         {
-            PlayerControls = new MainControls();
+            //PlayerControls = new MainControls();
 
             PlayerAnimator = GetComponent<Animator>();
 
             rb = GetComponent<Rigidbody2D>();
         }
 
-        private void OnEnable()
-        {
-            PlayerControls.Enable();
-        }
-
-        private void OnDisable()
-        {
-            PlayerControls.Disable();
-        }
-
         private void Update()
         {
-            Vector2 Movement = PlayerControls.PlayerControls.Movement.ReadValue<Vector2>();
+            Vector2 Movement = PlayerInput.Instance.mainControls.PlayerControls.Movement.ReadValue<Vector2>();
 
             PlayerAnimator.SetFloat("Vertical", Movement.y);
             PlayerAnimator.SetFloat("Horizontal", Movement.x);

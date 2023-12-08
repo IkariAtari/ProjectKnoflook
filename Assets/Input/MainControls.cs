@@ -114,6 +114,54 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GUIControl"",
+            ""id"": ""f17a42ab-524a-42bd-a737-62c0deea9b41"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""1bbe9637-9656-43b6-8938-7194ea770c83"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleDebug"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2f6a846-6fb3-4980-8889-b2c68c5c32df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""bde6a879-9266-4a09-8d22-f5bcb16309e4"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6104d0dd-6661-4e54-87d6-724330e629a1"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDebug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -122,6 +170,10 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_Mouse = m_PlayerControls.FindAction("Mouse", throwIfNotFound: true);
+        // GUIControl
+        m_GUIControl = asset.FindActionMap("GUIControl", throwIfNotFound: true);
+        m_GUIControl_ToggleInventory = m_GUIControl.FindAction("ToggleInventory", throwIfNotFound: true);
+        m_GUIControl_ToggleDebug = m_GUIControl.FindAction("ToggleDebug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -233,9 +285,68 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+
+    // GUIControl
+    private readonly InputActionMap m_GUIControl;
+    private List<IGUIControlActions> m_GUIControlActionsCallbackInterfaces = new List<IGUIControlActions>();
+    private readonly InputAction m_GUIControl_ToggleInventory;
+    private readonly InputAction m_GUIControl_ToggleDebug;
+    public struct GUIControlActions
+    {
+        private @MainControls m_Wrapper;
+        public GUIControlActions(@MainControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleInventory => m_Wrapper.m_GUIControl_ToggleInventory;
+        public InputAction @ToggleDebug => m_Wrapper.m_GUIControl_ToggleDebug;
+        public InputActionMap Get() { return m_Wrapper.m_GUIControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GUIControlActions set) { return set.Get(); }
+        public void AddCallbacks(IGUIControlActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GUIControlActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GUIControlActionsCallbackInterfaces.Add(instance);
+            @ToggleInventory.started += instance.OnToggleInventory;
+            @ToggleInventory.performed += instance.OnToggleInventory;
+            @ToggleInventory.canceled += instance.OnToggleInventory;
+            @ToggleDebug.started += instance.OnToggleDebug;
+            @ToggleDebug.performed += instance.OnToggleDebug;
+            @ToggleDebug.canceled += instance.OnToggleDebug;
+        }
+
+        private void UnregisterCallbacks(IGUIControlActions instance)
+        {
+            @ToggleInventory.started -= instance.OnToggleInventory;
+            @ToggleInventory.performed -= instance.OnToggleInventory;
+            @ToggleInventory.canceled -= instance.OnToggleInventory;
+            @ToggleDebug.started -= instance.OnToggleDebug;
+            @ToggleDebug.performed -= instance.OnToggleDebug;
+            @ToggleDebug.canceled -= instance.OnToggleDebug;
+        }
+
+        public void RemoveCallbacks(IGUIControlActions instance)
+        {
+            if (m_Wrapper.m_GUIControlActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGUIControlActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GUIControlActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GUIControlActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GUIControlActions @GUIControl => new GUIControlActions(this);
     public interface IPlayerControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+    }
+    public interface IGUIControlActions
+    {
+        void OnToggleInventory(InputAction.CallbackContext context);
+        void OnToggleDebug(InputAction.CallbackContext context);
     }
 }

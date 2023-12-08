@@ -7,11 +7,7 @@ using UnityEngine;
 public class ProjectileWeapon : Weapon
 {
     public int ProjectileAmount;
-    public int ProjectileDamage;
-    public float ProjectileSpeed;
-    public float ProjectileLifespan;
-    public int Penetration;
+    public int Spread;
 
-    public GameObject Projectile;
-    public MonoBehaviour AttackBehaviour;
+    public Projectile Projectile;
 }

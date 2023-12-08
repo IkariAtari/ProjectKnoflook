@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ToBeNamed.Projectile;
+using ToBeNamed.Projectiles;
 
 public class CircleDanmaku : AttackBehaviour
 {
@@ -16,19 +16,7 @@ public class CircleDanmaku : AttackBehaviour
 
             Quaternion direction =  Quaternion.AngleAxis(dir, Vector3.forward);
 
-            GameObject projectileObject = Instantiate(ProjectileWeapon.Projectile, Location, direction);
-
-            Projectile projectile = projectileObject.AddComponent<Projectile>();
-
-            projectile.Sprite = ProjectileWeapon.Sprite;
-            projectile.Speed = ProjectileWeapon.ProjectileSpeed;
-            projectile.Direction = direction;
-            projectile.BaseDamage = ProjectileWeapon.ProjectileDamage;
-            projectile.ExtraDamage = ProjectileWeapon.BaseDamage;
-            projectile.Penetration = ProjectileWeapon.Penetration;
-            projectile.LifeSpan = ProjectileWeapon.ProjectileLifespan;
-
-            projectile.Launch();
+            //projectile.Launch();
         }
     }
 }

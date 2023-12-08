@@ -2,31 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ToBeNamed.Projectile
+namespace ToBeNamed.Projectiles
 {
-    public class Projectile : MonoBehaviour
+    public class ProjectileBehaviour : MonoBehaviour
     {
-        public float Speed;
-
-        public Quaternion Direction;
-
-        public Sprite Sprite;
-
-        public float LifeSpan;
-
-        public int Penetration;
-
         public int BaseDamage;
-
-        public int ExtraDamage;
 
         [SerializeField]
         private int PenetrationCounter;
 
+        public Projectile Projectile;
+
         private void Start()
         {
-            GetComponent<SpriteRenderer>().sprite = Sprite;
-            PenetrationCounter = Penetration;
+            GetComponent<SpriteRenderer>().sprite = Projectile.Sprite;
+            PenetrationCounter = Projectile.Penetration;
         }
 
         public void Launch()
@@ -36,13 +26,13 @@ namespace ToBeNamed.Projectile
 
         private void Update()
         {
-            transform.rotation = Direction;
-            transform.position += transform.up * Speed * Time.deltaTime;
+            //transform.rotation = Direction;
+            transform.position += transform.up * Projectile.Speed * Time.deltaTime;
         }
 
         private IEnumerator LifespanTimer()
         {
-            yield return new WaitForSeconds(LifeSpan);
+            yield return new WaitForSeconds(Projectile.Lifespan);
 
             Destroy(this.gameObject);
         }
@@ -58,7 +48,7 @@ namespace ToBeNamed.Projectile
             {
                 if(collision.transform.GetComponent<IHurtable>() != null)
                 {
-                    collision.transform.GetComponent<IHurtable>().Hurt(BaseDamage + ExtraDamage);
+                    collision.transform.GetComponent<IHurtable>().Hurt(BaseDamage + Projectile.Damage);
 
                     if(PenetrationCounter == 0)
                     {

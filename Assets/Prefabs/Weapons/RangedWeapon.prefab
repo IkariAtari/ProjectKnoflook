@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8918898136750610596}
   - component: {fileID: 9115813200993208505}
   m_Layer: 0
-  m_Name: FireballPulse
+  m_Name: RangedWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9115813200993208505
 MonoBehaviour:
@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fddb4c671cc6545bacc85ed7e09c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileWeapon: {fileID: 11400000, guid: f93f97f6ea0825b4c90e5e617921952b, type: 2}
+  ProjectileWeapon: {fileID: 11400000, guid: be99483915264a346a5a840ffe8be677, type: 2}

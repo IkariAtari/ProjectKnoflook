@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ToBeNamed.Projectile;
+using ToBeNamed.Projectiles;
 
 public class DirectionalProjectileAttack : AttackBehaviour
 {
@@ -10,24 +10,26 @@ public class DirectionalProjectileAttack : AttackBehaviour
 
     public override void DoAttack(Vector3 Location)
     {
-        Vector2 Heading = GameManager.Instance.MainCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Vector3 MouseLocation = GameManager.Instance.MainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 MouseLocation2D = new Vector2(MouseLocation.x, MouseLocation.y);
+        Vector2 Heading = MouseLocation2D - new Vector2(transform.position.x, transform.position.y);
+        Heading.Normalize();
         float Distance = Heading.magnitude;
         Vector2 Direction = Heading / Distance;
-        print(Direction);
+
+        //float DirectionAngle = Vector2.Angle(transform.position * Mathf.Rad2Deg, MouseLocation);
+
+        float DirectionAngle = Mathf.Atan2(Heading.x, Heading.y) * Mathf.Rad2Deg;
+        Quaternion DirectionAxis = Quaternion.AngleAxis(DirectionAngle, -Vector3.forward);
 
         for (int i = 0; i < ProjectileWeapon.ProjectileAmount; i++)
         {
-            GameObject projectileObject = Instantiate(ProjectileWeapon.Projectile, Location, Quaternion.Euler(Direction * 360));
+            GameObject projectileObject = Instantiate(ProjectileWeapon.Projectile.ProjectilePrefab, Location, DirectionAxis);
+            ProjectileBehaviour projectile = projectileObject.AddComponent<ProjectileBehaviour>();
 
-            Projectile projectile = projectileObject.AddComponent<Projectile>();
-
-            projectile.Sprite = ProjectileWeapon.Sprite;
-            projectile.Speed = ProjectileWeapon.ProjectileSpeed;
-            projectile.Direction = Quaternion.Euler(Direction * 360);
-            projectile.BaseDamage = ProjectileWeapon.ProjectileDamage;
-            projectile.ExtraDamage = ProjectileWeapon.BaseDamage;
-            projectile.Penetration = ProjectileWeapon.Penetration;
-            projectile.LifeSpan = ProjectileWeapon.ProjectileLifespan;
+            projectile.BaseDamage = ProjectileWeapon.BaseDamage;
+            projectile.Projectile = ProjectileWeapon.Projectile;
 
             projectile.Launch();
         }
