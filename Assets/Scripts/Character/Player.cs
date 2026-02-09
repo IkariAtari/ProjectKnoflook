@@ -22,7 +22,7 @@ namespace ToBeNamed.Character
 
         [SerializeField]
         //[ReadOnly]
-        private List<GameObject> Weapons = new List<GameObject>();
+        private List<GameObject> Weapons;
 
         [SerializeField]
         private Sprite FullHeart, HalfHeart, EmptyHeart;
@@ -55,8 +55,6 @@ namespace ToBeNamed.Character
 
         private void OnAttack()
         {
-            print("Attack!");
-
             foreach (GameObject weapon in Weapons)
             {
                 weapon.GetComponent<AttackBehaviour>().DoAttack(transform.position);
@@ -79,7 +77,7 @@ namespace ToBeNamed.Character
                 Health = 0;
             }
 
-            if(PlayerMouse.leftButton.wasPressedThisFrame)
+            if(PlayerMouse.leftButton.IsActuated())
             {
                 OnAttack();
             }

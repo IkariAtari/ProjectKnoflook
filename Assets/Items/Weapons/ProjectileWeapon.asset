@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: ProjectileWeapon
   m_EditorClassIdentifier: 
   Name: 
-  Sprite: {fileID: 0}
-  BaseDamage: 0
-  AttackSpeed: 0
+  Description: 
+  MaxStack: 0
+  MultiStack: 0
+  IconSprite: {fileID: 0}
+  BaseDamage: 40
+  AttackSpeed: 15
   CritRate: 0
   CritDamage: 0
-  Prefab: {fileID: 0}
-  ProjectileAmount: 0
-  Spread: 0
-  Projectile: {fileID: 0}
+  Prefab: {fileID: 1607245154113358470, guid: ad6033b922311d74a8b8bfb380730a28, type: 3}
+  ProjectileAmount: 10
+  Spread: 30
+  Projectile: {fileID: 11400000, guid: 974c03db778e2f94da924ad3cfae9fc6, type: 2}

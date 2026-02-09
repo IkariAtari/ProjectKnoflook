@@ -23,10 +23,14 @@ namespace ToBeNamed.Character.Enemies
         private Slider HealthBar;
 
         public int Damage;
+        
+        private AudioSource AudioSource;
 
         private void Start()
         {
             Player = GameObject.Find("Player");
+            
+            AudioSource = GetComponent<AudioSource>();
 
             Health = MaxHealth;
             HealthBar.maxValue = MaxHealth;
@@ -49,6 +53,10 @@ namespace ToBeNamed.Character.Enemies
             Health -= Damage;
 
             HealthBar.value = Health;
+            
+            AudioSource.pitch = Random.Range(0.8f, 1.2f);
+            
+            AudioSource.Play();
 
             if(Health <= 0)
             {
