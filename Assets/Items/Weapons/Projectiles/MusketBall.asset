@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e32a7ba18c12147991734d2123d0d0, type: 3}
   m_Name: MusketBall
   m_EditorClassIdentifier: 
-  Penetration: 1
-  Damage: 15
+  Penetration: 0
+  Damage: 40
   Speed: 2
-  Lifespan: 10
+  Lifespan: 2
   WiggleAmount: 0
   WiggleSpeed: 0
   WiggleSpeedVariance: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ToBeNamed.Character
+namespace Character
 {
     public class PlayerController : MonoBehaviour
     {
@@ -54,7 +54,7 @@ namespace ToBeNamed.Character
                 PlayerAnimator.SetBool("IsWalking", false);
             }
 
-            rb.MovePosition(transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime); // transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime;
+            rb.MovePosition(transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime);
 
             PlayerCamera.transform.position = Vector3.Lerp(PlayerCamera.transform.position, transform.position + new Vector3(0, 0, CameraDistance), CameraSpeed * Time.deltaTime);
 

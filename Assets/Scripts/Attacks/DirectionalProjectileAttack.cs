@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ToBeNamed.Projectiles;
+using Random = UnityEngine.Random;
 
 public class DirectionalProjectileAttack : AttackBehaviour
 {
@@ -26,20 +27,18 @@ public class DirectionalProjectileAttack : AttackBehaviour
             Vector2 Direction = Heading / Distance;
             
             float DirectionAngle = Mathf.Atan2(Heading.y, Heading.x) * Mathf.Rad2Deg;
-
-            print(ProjectileWeapon);
             
             float angleOffset = ProjectileWeapon.Spread / (float)ProjectileWeapon.ProjectileAmount;
             
             for (int i = 0; i < ProjectileWeapon.ProjectileAmount; i++)
             {
-                print(DirectionAngle);
-                
                 GameObject projectileObject = Instantiate(ProjectileWeapon.Projectile.ProjectilePrefab, Location, Quaternion.Euler(0f, 0f, DirectionAngle - 90f + (angleOffset * i) - ProjectileWeapon.Spread / 2f));
                 
-                ProjectileBehaviour projectile = projectileObject.AddComponent<ProjectileBehaviour>();
+                ProjectileBehaviour projectile = projectileObject.GetComponent<ProjectileBehaviour>();
 
-                projectile.BaseDamage = ProjectileWeapon.BaseDamage;
+                int damageNoise = Random.Range(-1, 5);
+
+                projectile.BaseDamage = ProjectileWeapon.BaseDamage + damageNoise;
                 projectile.Projectile = ProjectileWeapon.Projectile;
 
                 projectile.Launch();

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Quaternion = System.Numerics.Quaternion;
 
-namespace ToBeNamed.Character.Enemies
+namespace Character.Enemies
 {
     public class Enemy : MonoBehaviour, IHurtable
     {
@@ -25,6 +26,8 @@ namespace ToBeNamed.Character.Enemies
         public int Damage;
         
         private AudioSource AudioSource;
+        
+        [SerializeField] private GameObject DamageNumberPrefab;
 
         private void Start()
         {
@@ -51,13 +54,15 @@ namespace ToBeNamed.Character.Enemies
         public void Hurt(int Damage)
         {
             Health -= Damage;
-
             HealthBar.value = Health;
-            
             AudioSource.pitch = Random.Range(0.8f, 1.2f);
             
             AudioSource.Play();
 
+            DamageNumbers damageNumbers = Instantiate(DamageNumberPrefab, transform).GetComponent<DamageNumbers>();
+            damageNumbers.transform.SetParent(null);
+            damageNumbers.ShowNumbers(Damage);
+            
             if(Health <= 0)
             {
                 Destroy(this.gameObject);

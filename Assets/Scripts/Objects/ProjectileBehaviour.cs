@@ -69,10 +69,10 @@ namespace ToBeNamed.Projectiles
                 if(collision.transform.GetComponent<IHurtable>() != null)
                 {
                     collision.transform.GetComponent<IHurtable>().Hurt(BaseDamage + Projectile.Damage);
-
+                    
                     if(PenetrationCounter == 0)
                     {
-                        Destroy(this.gameObject);
+                        gameObject.SetActive(false);
                     }
                 }
             }

@@ -44,22 +44,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4a0b30f15b30640b51af4f8e61de0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Number: 111111
+  Number: 0
   Sprites:
   - {fileID: -1936741329, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: 1303372625250270344, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: 4028330786661207543, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: -902177437, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
+  - {fileID: 1006323829, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: -1165373860, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: -877344737, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: -1785405260, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: -771795741, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   - {fileID: 67574912, guid: d7c46b63f8b6e454ea5e2334b5a68c44, type: 3}
   DamageNumberPrefab: {fileID: 8158608962613359669, guid: c6c39e36aad14cb4b81ae4b8f59e03c8, type: 3}
-  DamageNumberOffset: {x: 0.1, y: 0, z: 0}
+  DamageNumberOffset: {x: 0.07, y: 0, z: 0}
   MasterOffset: {x: 0, y: 0, z: 0}
-  ScaleSinTime: 1
-  ScaleSinPower: 1
-  DefaultScale: 1
-  RotationSinTime: 1
-  RotationSinPower: 1
+  ScaleSinTime: 0.91
+  ScaleSinPower: 0.85
+  DefaultScale: 0.05
+  RotationSinTime: 0.94
+  RotationSinPower: 0.94
+  MovementSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.13390356
+      value: 0.90324754
+      inSlope: 2.0796778
+      outSlope: 2.0796778
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.13486786
+    - serializedVersion: 3
+      time: 0.4415034
+      value: -0.48092967
+      inSlope: 0.027738601
+      outSlope: 0.027738601
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.30844772
+    - serializedVersion: 3
+      time: 0.73495996
+      value: 0.021199346
+      inSlope: -3.9185958
+      outSlope: -3.9185958
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.06292121
+    - serializedVersion: 3
+      time: 0.9833333
+      value: 0.0023908615
+      inSlope: -0.01677175
+      outSlope: -0.01677175
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3673814
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeScale: 100
+  CurrentTime: 0
+  MovementNoiseConstant: 0.65

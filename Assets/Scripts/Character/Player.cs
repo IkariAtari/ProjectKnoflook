@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-namespace ToBeNamed.Character
+namespace Character
 {
     public class Player : MonoBehaviour, IHurtable
     {
