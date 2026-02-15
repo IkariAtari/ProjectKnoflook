@@ -6,7 +6,7 @@ using Quaternion = System.Numerics.Quaternion;
 
 namespace Character.Enemies
 {
-    public class Enemy : MonoBehaviour, IHurtable
+    public class Enemy : MonoBehaviour, IHurtable, IPooledObject
     {
         [SerializeField]
         //[ReadOnly]
@@ -28,16 +28,14 @@ namespace Character.Enemies
         private AudioSource AudioSource;
         
         [SerializeField] private GameObject DamageNumberPrefab;
+        
+        public IManagedPool ManagedPool { get; set; }
 
         private void Start()
         {
             Player = GameObject.Find("Player");
-            
-            AudioSource = GetComponent<AudioSource>();
 
-            Health = MaxHealth;
-            HealthBar.maxValue = MaxHealth;
-            HealthBar.value = MaxHealth;
+            AudioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -49,6 +47,15 @@ namespace Character.Enemies
             {
                 Destroy(this);
             }
+        }
+
+        public void Init(Vector2 position)
+        {
+            Health = MaxHealth;
+            HealthBar.maxValue = MaxHealth;
+            HealthBar.value = MaxHealth;
+
+            transform.position = position;
         }
 
         public void Hurt(int Damage)
@@ -65,7 +72,7 @@ namespace Character.Enemies
             
             if(Health <= 0)
             {
-                Destroy(this.gameObject);
+                ManagedPool.Release(this.gameObject);
             }
         }
 

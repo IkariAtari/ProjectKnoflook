@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MusketBall
   m_EditorClassIdentifier: 
   Penetration: 0
-  Damage: 40
+  Damage: 500
   Speed: 2
   Lifespan: 2
   WiggleAmount: 0

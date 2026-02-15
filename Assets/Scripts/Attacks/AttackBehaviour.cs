@@ -11,7 +11,7 @@ public class AttackBehaviour : MonoBehaviour
 
     [ShowInInspector]
     [ReadOnly]
-    protected int weaponTimer;
+    protected float weaponTimer;
 
     private void Start()
     {
@@ -20,13 +20,13 @@ public class AttackBehaviour : MonoBehaviour
 
     public virtual void DoAttack(Vector3 Location)
     {
-        if (weaponTimer <= 0)
+        if (weaponTimer <= 0f)
         {
             weaponTimer = Weapon.AttackSpeed;
         }
         else
         {
-            weaponTimer--;
+            weaponTimer -= 1f * Time.deltaTime;
         }
     }
 }

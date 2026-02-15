@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Character.Enemies;
 using UnityEngine;
+using UnityEngine.Pool;
+using Random = UnityEngine.Random;
+
 //using Sirenix.OdinInspector;
 
 namespace ToBeNamed.Worldgen
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour, IManagedPool
     {
         [SerializeField]
         private GameObject Player;
@@ -21,6 +26,8 @@ namespace ToBeNamed.Worldgen
         [Range(1f, 100f)]
         private int SpawnAmount;
 
+        [SerializeField] private int MaxEnemies;
+
         private int Time;
 
         public GameObject Enemy;
@@ -28,6 +35,52 @@ namespace ToBeNamed.Worldgen
         [SerializeField]
         //[ReadOnly]
         private bool PlayerIsInRange;
+        
+        private ObjectPool<GameObject> pool;
+
+        public void Release(GameObject gameObject)
+        {
+            pool.Release(gameObject);
+        }
+        
+        private void Awake()
+        {
+            pool = new ObjectPool<GameObject>(
+                createFunc: CreateEnemy,
+                actionOnGet: OnGet,
+                actionOnRelease: OnRelease,
+                actionOnDestroy: OnDestroy,
+                collectionCheck: true,
+                defaultCapacity: 10,
+                maxSize: 150
+                );
+        }
+
+        private GameObject CreateEnemy()
+        {
+            GameObject enemy = Instantiate(Enemy);
+            enemy.GetComponent<IPooledObject>().ManagedPool = this;
+            enemy.GetComponent<Enemy>().Init(transform.position.AsVector2() + Random.insideUnitCircle.normalized * SpawnRadius);
+                
+            return enemy;
+        }
+
+        private void OnGet(GameObject gameObject)
+        {
+            gameObject.SetActive(true);
+            gameObject.GetComponent<Enemy>().Init(transform.position.AsVector2() + Random.insideUnitCircle.normalized * SpawnRadius);
+        }
+
+        public void OnRelease(GameObject gameObject)
+        {
+            print("Released");
+            gameObject.SetActive(false);
+        }
+
+        private void OnDestroy(GameObject gameObject)
+        {
+            Destroy(gameObject);
+        }
 
         private void Start()
         {
@@ -45,7 +98,14 @@ namespace ToBeNamed.Worldgen
             {
                 if (Time == TimerMax)
                 {
-                    DoSpawn();
+                    if (pool.CountActive >= MaxEnemies)
+                    {
+                        print("Too many enemies");
+                    }
+                    else
+                    {
+                        GameObject enemy = pool.Get();
+                    }
                 }
 
                 if(Time > 0f)

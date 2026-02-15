@@ -13,7 +13,7 @@ public class InventoryEditor : EditorWindow
     private ObjectField ItemField;
 
     private Item Item;
-
+    /*
     [MenuItem("Tools/InventoryEditor")]
     public static void ShowExample()
     {
@@ -54,4 +54,5 @@ public class InventoryEditor : EditorWindow
 
         Player.GetComponent<PlayerInventory>().AddItem(Item);
     }
+    */
 }
