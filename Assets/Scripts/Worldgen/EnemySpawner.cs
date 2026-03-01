@@ -73,7 +73,6 @@ namespace ToBeNamed.Worldgen
 
         public void OnRelease(GameObject gameObject)
         {
-            print("Released");
             gameObject.SetActive(false);
         }
 

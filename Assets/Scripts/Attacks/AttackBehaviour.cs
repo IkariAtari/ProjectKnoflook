@@ -18,7 +18,7 @@ public class AttackBehaviour : MonoBehaviour
         print("Started a weapon");
     }
 
-    public virtual void DoAttack(Vector3 Location)
+    public virtual void DoAttack(Vector3 location)
     {
         if (weaponTimer <= 0f)
         {
@@ -26,7 +26,7 @@ public class AttackBehaviour : MonoBehaviour
         }
         else
         {
-            weaponTimer -= 1f * Time.deltaTime;
+            weaponTimer -= 1f;
         }
     }
 }

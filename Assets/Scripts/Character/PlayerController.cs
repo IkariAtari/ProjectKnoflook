@@ -14,8 +14,6 @@ namespace Character
         [Range(0.1f, 10f)]
         private float CameraSpeed;
 
-        //private MainControls PlayerControls;
-
         [SerializeField]
         private Camera PlayerCamera;
 
@@ -31,8 +29,6 @@ namespace Character
 
         private void Awake()
         {
-            //PlayerControls = new MainControls();
-
             PlayerAnimator = GetComponent<Animator>();
 
             rb = GetComponent<Rigidbody2D>();
@@ -40,12 +36,12 @@ namespace Character
 
         private void Update()
         {
-            Vector2 Movement = PlayerInput.Instance.mainControls.PlayerControls.Movement.ReadValue<Vector2>();
+            Vector2 movement = PlayerInput.Instance.mainControls.PlayerControls.Movement.ReadValue<Vector2>();
 
-            PlayerAnimator.SetFloat("Vertical", Movement.y);
-            PlayerAnimator.SetFloat("Horizontal", Movement.x);
+            PlayerAnimator.SetFloat("Vertical", movement.y);
+            PlayerAnimator.SetFloat("Horizontal", movement.x);
 
-            if(Movement.x != 0 || Movement.y != 0)
+            if(movement.x != 0 || movement.y != 0)
             {
                 PlayerAnimator.SetBool("IsWalking", true);
             }
@@ -54,7 +50,7 @@ namespace Character
                 PlayerAnimator.SetBool("IsWalking", false);
             }
 
-            rb.MovePosition(transform.position += new Vector3(Movement.x, Movement.y, 0) * Speed * Time.deltaTime);
+            rb.MovePosition(transform.position += new Vector3(movement.x * Speed, movement.y * Speed, 0) * Time.deltaTime);
 
             PlayerCamera.transform.position = Vector3.Lerp(PlayerCamera.transform.position, transform.position + new Vector3(0, 0, CameraDistance), CameraSpeed * Time.deltaTime);
 

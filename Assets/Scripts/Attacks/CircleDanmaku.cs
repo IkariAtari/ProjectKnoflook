@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ToBeNamed.Projectiles;
+using Projectiles;
 
 public class CircleDanmaku : AttackBehaviour
 {
     [SerializeField]
     private ProjectileWeapon ProjectileWeapon;
 
-    public override void DoAttack(Vector3 Location)
+    public override void DoAttack(Vector3 location)
     { 
         for(int i = 0; i < ProjectileWeapon.ProjectileAmount; i++)
         {

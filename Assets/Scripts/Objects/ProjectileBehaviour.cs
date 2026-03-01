@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using Objects;
 
-namespace ToBeNamed.Projectiles
+namespace Projectiles
 {
     public class ProjectileBehaviour : MonoBehaviour
     {
@@ -26,7 +27,7 @@ namespace ToBeNamed.Projectiles
         private void Start()
         {
             GetComponent<SpriteRenderer>().sprite = Projectile.Sprite;
-            PenetrationCounter = Projectile.Penetration;
+            PenetrationCounter = Projectile.penetration;
             speed = Projectile.Speed;
             wiggleAmount = Projectile.WiggleAmount;
             wiggleSpeed = Projectile.WiggleSpeed;

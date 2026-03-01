@@ -9,7 +9,7 @@ namespace Character
 {
     public class Player : MonoBehaviour, IHurtable
     {
-        public int Health;
+        public int health;
 
         public int MaxHealth = 12;
 
@@ -34,6 +34,9 @@ namespace Character
         [Range(0.1f, 10f)]
         private float AttackTime = 5;
 
+        [SerializeField] private int CritDamage;
+        [SerializeField] private int CritRate;
+
         private MainControls PlayerControls;
 
         private Mouse PlayerMouse;
@@ -48,7 +51,7 @@ namespace Character
 
             //StartCoroutine(DoAttacks());
 
-            Health = MaxHealth;
+            health = MaxHealth;
 
             UpdateHealthBar();
         }
@@ -72,9 +75,9 @@ namespace Character
                 HealthCooldownTime = 0;
             }
 
-            if(Health < 0)
+            if(health < 0)
             {
-                Health = 0;
+                health = 0;
             }
 
             if(PlayerMouse.leftButton.IsActuated())
@@ -92,7 +95,7 @@ namespace Character
         {
             if(HealthCooldownTime == 0)
             {
-                Health -= Damage;
+                health -= Damage;
 
                 GetComponent<AudioSource>().Play();
 
@@ -104,7 +107,7 @@ namespace Character
 
         private void UpdateHealthBar()
         {
-            float fractionalHealth = Health / 2f;
+            float fractionalHealth = health / 2f;
 
             for(int i = 0; i < 6; i++)
             {

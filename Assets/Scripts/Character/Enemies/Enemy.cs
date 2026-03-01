@@ -40,8 +40,8 @@ namespace Character.Enemies
 
         private void Update()
         {
-            float Step = Speed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, Step);
+            float step = Speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, step);
 
             if(Health <= 0)
             {

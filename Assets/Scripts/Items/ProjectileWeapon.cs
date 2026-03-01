@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Objects;
 
 
 [CreateAssetMenu(fileName = "ProjectileWeapon", menuName = "Items/ProjectileWeapon", order = 1)]

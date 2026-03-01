@@ -40,6 +40,8 @@ public class Worldgen : MonoBehaviour
     [SerializeField]
     private int Treshold = 1;
 
+    [SerializeField] private Matrix4x4 Matrix;
+
     [Button("Generate Noise Map!")]
     private void GenerateButton()
     {
